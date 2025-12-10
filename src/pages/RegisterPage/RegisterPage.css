@@ -1,4 +1,4 @@
-.login-container {
+.register-container {
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -9,12 +9,4 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-.signup-link {
-  margin-top: 20px;
-  text-align: center;
-  color: #7ea6e7;
-  font-weight: bold;
-  cursor: pointer;
 }

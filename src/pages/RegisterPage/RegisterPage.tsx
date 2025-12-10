@@ -10,14 +10,13 @@ import {
   Typography,
 } from "@mui/material";
 import authImage from "../../assets/authpage.svg";
-import "./LoginPage.css";
+import "./RegisterPage.css";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
-
-function LoginPage() {
+function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className="login-container">
+    <div className="register-container">
       <Card
         sx={{
           display: "flex",
@@ -35,13 +34,14 @@ function LoginPage() {
         <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
           <CardContent sx={{ flex: "0 1 auto", padding: 4 }}>
             <Typography component="div" variant="h5" fontWeight={600}>
-              Welcome Back!
+              Sign Up
             </Typography>
             <Typography variant="subtitle1" color="text.secondary" component="div" sx={{ mb: 2 }}>
-              Please login to your account
+              Please provide your details to create an account
             </Typography>
             <form>
-              <TextField label="Username or Email" margin="normal" variant="outlined" fullWidth />
+              <TextField label="Username" margin="normal" variant="outlined" fullWidth />
+              <TextField label="Email" margin="normal" variant="outlined" fullWidth />
               <TextField
                 label="Password"
                 margin="normal"
@@ -58,16 +58,26 @@ function LoginPage() {
                   ),
                 }}
               />
+              <TextField
+                label="Confirm Password"
+                margin="normal"
+                variant="outlined"
+                fullWidth
+                type={showPassword ? "text" : "password"}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={() => setShowPassword(!showPassword)}>
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
               <Button fullWidth variant="contained" size="large" sx={{ mt: 3, py: 1.2 }}>
-                Login
+                Sign Up
               </Button>
             </form>
-            <Typography
-              variant="body2"
-              sx={{ mt: 2, textAlign: "center", color: "text.secondary" }}
-            >
-              Don't have an account? <span className="signup-link">Sign Up</span>
-            </Typography>
           </CardContent>
         </Box>
       </Card>
@@ -75,4 +85,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RegisterPage;
