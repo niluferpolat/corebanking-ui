@@ -1,7 +1,14 @@
 import { Button } from "primereact/button";
 import { Image } from "primereact/image";
 import MainImage from "@/assets/main-page.svg";
+import { useNavigate } from "react-router";
 function Home() {
+  const navigate = useNavigate();
+
+  const handleOpenAccount = () => {
+    navigate("/register");
+  };
+
   return (
     <>
       <div className="flex items-center justify-between mt-20 h-120 p-10 rounded-md shadow-lg bg-white">
@@ -10,7 +17,7 @@ function Home() {
           <h1 className="text-5xl font-bold text-gray-800">Welcome to Minibank</h1>
           <p className="text-gray-600 mt-4">Your trusted partner in managing your finances.</p>
           <div className="mt-6 flex justify-end">
-            <Button label="Open an Account" />
+            <Button onClick={handleOpenAccount} label="Open an Account" />
           </div>
         </div>
       </div>
