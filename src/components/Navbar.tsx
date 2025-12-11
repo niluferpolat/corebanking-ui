@@ -1,24 +1,24 @@
-import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
+import { Menubar } from "primereact/menubar";
+import type { MenuItem } from "primereact/menuitem";
+import { useNavigate } from "react-router";
 
 function Navbar() {
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          ></IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Geeksforgeeks
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </Box>
-  );
+  const navigate = useNavigate();
+
+  const items: MenuItem[] = [
+    {
+      label: "Home",
+      icon: "pi pi-fw pi-home",
+      command: () => navigate("/"),
+    },
+    {
+      label: "Account",
+      icon: "pi pi-fw pi-user",
+      command: () => navigate("/account"),
+    },
+  ];
+
+  return <Menubar className="p-4 bg-white/80 border-b shadow-sm" model={items} />;
 }
 
 export default Navbar;
