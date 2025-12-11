@@ -5,6 +5,7 @@ import AuthLayout from "./layout/AuthLayout";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import { PrivateRoute } from "./layout/PrivateRoute";
+import AccountPage from "./pages/AccountPage";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
           path="/account"
           element={
             <PrivateRoute>
-              <div>AckjhkjhkjcountPage</div>
+              <AccountPage />
             </PrivateRoute>
           }
         />

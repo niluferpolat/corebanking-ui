@@ -52,7 +52,7 @@ function RegisterPage() {
   return (
     <div>
       <h1 className="text-2xl">Sign Up</h1>
-      <p className="mt-4">Register page content goes here.</p>
+      <p className="mt-4">Please fill your details</p>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-6 flex flex-col gap-4">
         <div>
           <InputText
@@ -110,6 +110,12 @@ function RegisterPage() {
         </div>
         <Button type="submit" label="Sign Up" className="mt-4 w-full" />
       </form>
+      <p className="mt-4 text-sm text-gray-600 text-center">
+        Already have an account?{" "}
+        <a href="/login" className="text-blue-600 hover:underline font-bold">
+          Sign In
+        </a>
+      </p>
     </div>
   );
 }
