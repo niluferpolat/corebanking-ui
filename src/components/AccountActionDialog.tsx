@@ -10,7 +10,7 @@ import * as yup from "yup";
 import { createAccount, updateAccountName } from "@/services/AccountService";
 import { useAccountStore } from "@/store/account.store";
 import { Toast } from "primereact/toast";
-import { useAccountDetailStore } from "@/store/account.detail.store";
+import { useSelectedAccountStore } from "@/store/account.detail.store";
 
 function AccountActionDialog(props: {
   dialogType: DialogType | null;
@@ -18,7 +18,7 @@ function AccountActionDialog(props: {
   isVisible: boolean;
 }) {
   const accountStore = useAccountStore();
-  const accountDetailStore = useAccountDetailStore();
+  const selectedAccountStore = useSelectedAccountStore();
   const toast = useRef<Toast>(null);
   const schema = yup
     .object({
@@ -34,10 +34,11 @@ function AccountActionDialog(props: {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
   React.useEffect(() => {
     if (props.isVisible && props.dialogType === DialogType.UPDATE) {
       reset({
-        accountName: accountDetailStore.selectedAccount?.accountName || "",
+        accountName: selectedAccountStore.selectedAccount?.accountName || "",
       });
     }
 
@@ -66,7 +67,7 @@ function AccountActionDialog(props: {
     if (props.dialogType === DialogType.UPDATE) {
       try {
         const request: UpdateAccountRequest = {
-          id: accountDetailStore.selectedAccount?.id,
+          id: selectedAccountStore.selectedAccount?.id,
           accountName: data.accountName,
         };
         const updatedAccount = await updateAccountName(request);

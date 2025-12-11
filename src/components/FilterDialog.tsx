@@ -44,6 +44,9 @@ function FilterDialog(props: { isVisible: boolean; setVisible: any }) {
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="m-3">
+            <InputText {...register("accountName")} className="w-full" placeholder="Account Name" />
+          </div>
+          <div className="m-3">
             <InputText
               invalid={!!errors.accountNumber}
               {...register("accountNumber")}
@@ -55,9 +58,6 @@ function FilterDialog(props: { isVisible: boolean; setVisible: any }) {
                 {errors.accountNumber.message}
               </p>
             )}
-          </div>
-          <div className="m-3">
-            <InputText {...register("accountName")} className="w-full" placeholder="Account Name" />
           </div>
           <div className="flex justify-end mr-3">
             <Button type="submit" label="Search" className="w-20" />

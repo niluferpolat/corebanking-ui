@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { getAccounts, deleteAccount } from "@/services/AccountService";
+import { getAccounts, deleteAccount, getAccountDetails } from "@/services/AccountService";
 import { useAccountStore } from "@/store/account.store";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -9,17 +9,21 @@ import FilterDialog from "@/components/FilterDialog";
 import { useAuthStore } from "@/store/auth.store";
 import AccountActionDialog from "@/components/AccountActionDialog";
 import { DialogType } from "@/types/enum";
-import { useAccountDetailStore } from "@/store/account.detail.store";
+import { useAccountDetailStore, useSelectedAccountStore } from "@/store/account.detail.store";
 import { confirmPopup, ConfirmPopup } from "primereact/confirmpopup";
 import { Toast } from "primereact/toast";
+import AccountDetailDialog from "@/components/AccountDetailDialog";
 
 function AccountPage() {
   const accountStore = useAccountStore();
-  const userStore = useAuthStore();
   const accountDetailStore = useAccountDetailStore();
+  const userStore = useAuthStore();
+  //localstates
+  const selectedAccountStore = useSelectedAccountStore();
   const [filterVisible, setFilterVisible] = useState<boolean>(false);
   const [actionVisible, setActionVisible] = useState<boolean>(false);
   const [dialogType, setDialogType] = useState<DialogType | null>(null);
+  const [detailDialogVisible, setDetailDialogVisible] = useState<boolean>(false);
   const toast = useRef<Toast>(null);
 
   const fetchAccounts = async () => {
@@ -36,10 +40,11 @@ function AccountPage() {
     setActionVisible(true);
   };
   const updateAccount = (row: AccountResponse) => {
-    accountDetailStore.setSelectedAccount(row);
+    selectedAccountStore.setSelectedAccount(row);
     setDialogType(DialogType.UPDATE);
     setActionVisible(true);
   };
+
   const onDeleteAccount = (event: any, row: AccountResponse) => {
     confirmPopup({
       target: event.currentTarget,
@@ -71,6 +76,12 @@ function AccountPage() {
       },
     });
   };
+
+  const seeAccountDetails = async (account: AccountResponse) => {
+    const response = await getAccountDetails(account.id);
+    accountDetailStore.setAccountDetail(response);
+    setDetailDialogVisible(true);
+  };
   const detailsBodyTemplate = (account: AccountResponse) => {
     return (
       <Button
@@ -78,7 +89,7 @@ function AccountPage() {
         outlined
         rounded
         className="p-button-sm"
-        onClick={() => console.log("Details:", account)}
+        onClick={() => seeAccountDetails(account)}
       />
     );
   };
@@ -150,6 +161,7 @@ function AccountPage() {
         setVisible={setActionVisible}
         dialogType={dialogType}
       />
+      <AccountDetailDialog visible={detailDialogVisible} setVisible={setDetailDialogVisible} />
     </>
   );
 }

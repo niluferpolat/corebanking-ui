@@ -1,4 +1,4 @@
-import type { AccountResponse } from "@/types/AccountTypes";
+import type { AccountDetailsResponse, AccountResponse } from "@/types/AccountTypes";
 import { create } from "zustand";
 
 interface SelectedAccountState {
@@ -6,12 +6,31 @@ interface SelectedAccountState {
   setSelectedAccount: (accounts: AccountResponse | null) => void;
   clearAccount: () => void;
 }
+interface AccountDetailState {
+  accountDetail: AccountDetailsResponse | null;
+  setAccountDetail: (accountDetail: AccountDetailsResponse | null) => void;
+  clearAccountDetail: () => void;
+}
 
-export const useAccountDetailStore = create<SelectedAccountState>((set) => ({
-  selectedAccount: null,
-  setSelectedAccount: (data) =>
+// For account detail dialog or detail view
+export const useAccountDetailStore = create<AccountDetailState>((set) => ({
+  accountDetail: null,
+  setAccountDetail: (detail) =>
     set({
-      selectedAccount: data,
+      accountDetail: detail,
+    }),
+  clearAccountDetail: () =>
+    set({
+      accountDetail: null,
+    }),
+}));
+
+// For tracking selected account for update or delete
+export const useSelectedAccountStore = create<SelectedAccountState>((set) => ({
+  selectedAccount: null,
+  setSelectedAccount: (account) =>
+    set({
+      selectedAccount: account,
     }),
   clearAccount: () =>
     set({
