@@ -1,4 +1,3 @@
-import "@/styles/Home.css";
 import { Button } from "primereact/button";
 import { Image } from "primereact/image";
 import MainImage from "@/assets/main-page.svg";
