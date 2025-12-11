@@ -18,10 +18,6 @@ export interface SearchAccountsRequest {
   accountNumber?: string;
 }
 
-export interface SearchAccountsResponse {
-  accounts: AccountResponse[];
-}
-
 export interface AccountDetailsResponse extends AccountResponse {
   balance: number;
   createdDate: string;
