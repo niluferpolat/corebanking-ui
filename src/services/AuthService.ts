@@ -8,7 +8,7 @@ export const login = async (loginRequest: LoginRequest): Promise<AuthResponse> =
   return response.data;
 };
 
-export const register = async (registerRequest: RegisterRequest): Promise<AuthResponse> => {
+export const signUp = async (registerRequest: RegisterRequest): Promise<AuthResponse> => {
   const response = await axios.post(`${baseURL}/register`, registerRequest);
   return response.data;
 };

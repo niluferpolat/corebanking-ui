@@ -4,8 +4,13 @@ import { InputText } from "primereact/inputtext";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "primereact/button";
+import { signUp } from "@/services/AuthService";
+import { useAuthStore } from "@/store/auth.store";
+import { useNavigate } from "react-router";
 
 function RegisterPage() {
+  const navigate = useNavigate();
+  const authStore = useAuthStore();
   const schema = yup
     .object({
       username: yup
@@ -30,8 +35,19 @@ function RegisterPage() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = (data: RegisterRequest) => {
-    console.log(data);
+  const onSubmit = async (data: RegisterRequest) => {
+    try {
+      const request = {
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      };
+      const response = await signUp(request);
+      authStore.login(response);
+      navigate("/account");
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
   };
   return (
     <div>
