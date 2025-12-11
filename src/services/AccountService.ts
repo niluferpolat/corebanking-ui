@@ -16,7 +16,7 @@ export const getAccountDetails = async (accountId: string): Promise<AccountDetai
 
 export const updateAccountName = async (
   accountRequest: UpdateAccountRequest
-): Promise<CreateAccountRequest> => {
+): Promise<AccountResponse> => {
   const response = await axiosInstance.put(`${baseURL}/${accountRequest.id}`, accountRequest);
   return response.data;
 };
