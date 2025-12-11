@@ -1,10 +1,16 @@
+import type { LoginRequest } from "@/types/AuthenticationTypes";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { login } from "@/services/AuthService";
+import { useAuthStore } from "@/store/auth.store";
+import { useNavigate } from "react-router";
 
 function LoginPage() {
+  const loginStore = useAuthStore();
+  const navigate = useNavigate();
   const schema = yup
     .object({
       usernameOrEmail: yup.string().required("Username or Email is required"),
@@ -18,8 +24,14 @@ function LoginPage() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: LoginRequest) => {
+    try {
+      const response = await login(data);
+      loginStore.login(response);
+      navigate("/account");
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
   };
   return (
     <div>

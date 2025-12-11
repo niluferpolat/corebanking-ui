@@ -4,6 +4,7 @@ import MainLayout from "./layout/MainLayout";
 import AuthLayout from "./layout/AuthLayout";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
+import { PrivateRoute } from "./layout/PrivateRoute";
 
 function App() {
   return (
@@ -13,7 +14,14 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
       </Route>
       <Route element={<MainLayout />}>
-        <Route path="/account" element={<div>AckjhkjhkjcountPage</div>} />
+        <Route
+          path="/account"
+          element={
+            <PrivateRoute>
+              <div>AckjhkjhkjcountPage</div>
+            </PrivateRoute>
+          }
+        />
         <Route index element={<Home />} />
       </Route>
     </Routes>
