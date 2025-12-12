@@ -2,7 +2,7 @@ import axios from "axios";
 import { useAuthStore } from "@/store/auth.store";
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/api",
+  baseURL: import.meta.env.VITE_API_BASE_URL || "https://corebanking-module-production.up.railway.app/api",
   headers: {
     "Content-Type": "application/json",
   },
