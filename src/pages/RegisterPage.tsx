@@ -53,7 +53,7 @@ function RegisterPage() {
 
       const errorMessage = details
         ? Object.entries(details)
-            .map(([field, message]) => `${message}`)
+            .map(([message]) => `${message}`)
             .join("\n")
         : "An error occurred during registration.";
 
