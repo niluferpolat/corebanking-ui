@@ -14,7 +14,7 @@ import TransferDialog from "@/components/TransferDialog";
 function TransactionHistoryPage() {
   const accountDetailStore = useAccountDetailStore();
   const transactionStore = useTransactionStore();
-  const toast = useRef<Toast>(null);
+  const toast = useRef<Toast | null>(null);
   const [isTransferDialogVisible, setIsTransferDialogVisible] = useState<boolean>(false);
 
   const fetchTransactions = async () => {

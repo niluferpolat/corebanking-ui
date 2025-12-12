@@ -32,7 +32,7 @@ function LoginPage() {
       const response = await login(data);
       loginStore.login(response);
       navigate("/account");
-    } catch (error) {
+    } catch (error: any) {
       toast.current?.show({
         severity: "error",
         summary: "Login Failed",

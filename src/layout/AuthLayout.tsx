@@ -1,4 +1,3 @@
-import React from "react";
 import { Outlet } from "react-router";
 import { Image } from "primereact/image";
 import AuthLogo from "@/assets/authpage.svg";

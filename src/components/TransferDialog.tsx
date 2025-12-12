@@ -1,3 +1,4 @@
+import type { RefObject } from "react";
 import { useAccountDetailStore } from "@/store/account.detail.store";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "primereact/button";
@@ -13,7 +14,7 @@ import { useTransactionStore } from "@/store/transaction.store";
 interface TransferDialogProps {
   setVisible: (visible: boolean) => void;
   isVisible: boolean;
-  toast: React.RefObject<Toast>;
+  toast: RefObject<Toast | null>;
 }
 
 function TransferDialog(props: TransferDialogProps) {

@@ -1,5 +1,6 @@
 import type { CreateAccountRequest, UpdateAccountRequest } from "@/types/AccountTypes";
 import { DialogType } from "@/types/enum";
+import type { DialogType as DialogTypeType } from "@/types/enum";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
@@ -15,7 +16,7 @@ import { useSelectedAccountStore } from "@/store/account.detail.store";
 interface AccountActionProps {
   setVisible: (visible: boolean) => void;
   isVisible: boolean;
-  dialogType: DialogType | null;
+  dialogType: DialogTypeType | null;
 }
 
 function AccountActionDialog(props: AccountActionProps) {
@@ -74,8 +75,17 @@ function AccountActionDialog(props: AccountActionProps) {
       }
       if (props.dialogType === DialogType.UPDATE) {
         try {
+          if (!selectedAccountStore.selectedAccount?.id) {
+            toast.current?.show({
+              severity: "error",
+              summary: "Error",
+              detail: "No account selected to update.",
+              life: 3000,
+            });
+            return;
+          }
           const request: UpdateAccountRequest = {
-            id: selectedAccountStore.selectedAccount?.id,
+            id: selectedAccountStore.selectedAccount.id,
             accountName: data.accountName,
           };
           const updatedAccount = await updateAccountName(request);

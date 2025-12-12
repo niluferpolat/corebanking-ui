@@ -48,7 +48,7 @@ function RegisterPage() {
       const response = await signUp(request);
       authStore.login(response);
       navigate("/account");
-    } catch (error) {
+    } catch (error: any) {
       toast.current?.show({
         severity: "error",
         summary: "Registration Failed",

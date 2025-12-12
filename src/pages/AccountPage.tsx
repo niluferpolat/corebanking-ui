@@ -9,6 +9,7 @@ import FilterDialog from "@/components/FilterDialog";
 import { useAuthStore } from "@/store/auth.store";
 import AccountActionDialog from "@/components/AccountActionDialog";
 import { DialogType } from "@/types/enum";
+import type { DialogType as DialogTypeType } from "@/types/enum";
 import { useAccountDetailStore, useSelectedAccountStore } from "@/store/account.detail.store";
 import { confirmPopup, ConfirmPopup } from "primereact/confirmpopup";
 import { Toast } from "primereact/toast";
@@ -22,7 +23,7 @@ function AccountPage() {
   const selectedAccountStore = useSelectedAccountStore();
   const [filterVisible, setFilterVisible] = useState<boolean>(false);
   const [actionVisible, setActionVisible] = useState<boolean>(false);
-  const [dialogType, setDialogType] = useState<DialogType | null>(null);
+  const [dialogType, setDialogType] = useState<DialogTypeType | null>(null);
   const [detailDialogVisible, setDetailDialogVisible] = useState<boolean>(false);
   const toast = useRef<Toast>(null);
 
