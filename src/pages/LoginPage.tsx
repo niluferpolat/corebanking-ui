@@ -7,10 +7,13 @@ import * as yup from "yup";
 import { login } from "@/services/AuthService";
 import { useAuthStore } from "@/store/auth.store";
 import { useNavigate } from "react-router";
+import { Toast } from "primereact/toast";
+import { useRef } from "react";
 
 function LoginPage() {
   const loginStore = useAuthStore();
   const navigate = useNavigate();
+  const toast = useRef<Toast>(null);
   const schema = yup
     .object({
       usernameOrEmail: yup.string().required("Username or Email is required"),
@@ -30,11 +33,16 @@ function LoginPage() {
       loginStore.login(response);
       navigate("/account");
     } catch (error) {
-      console.error("Login failed:", error);
+      toast.current?.show({
+        severity: "error",
+        summary: "Login Failed",
+        detail: error.response?.data?.error || "An error occurred during login.",
+      });
     }
   };
   return (
     <div>
+      <Toast ref={toast} />
       <h1 className="text-2xl">Welcome Back!</h1>
       <p className="mt-4">Please log in to your account.</p>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-6 flex flex-col gap-4">

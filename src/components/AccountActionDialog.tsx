@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
-import React, { useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { createAccount, updateAccountName } from "@/services/AccountService";
@@ -12,11 +12,13 @@ import { useAccountStore } from "@/store/account.store";
 import { Toast } from "primereact/toast";
 import { useSelectedAccountStore } from "@/store/account.detail.store";
 
-function AccountActionDialog(props: {
-  dialogType: DialogType | null;
-  setVisible: any;
+interface AccountActionProps {
+  setVisible: (visible: boolean) => void;
   isVisible: boolean;
-}) {
+  dialogType: DialogType | null;
+}
+
+function AccountActionDialog(props: AccountActionProps) {
   const accountStore = useAccountStore();
   const selectedAccountStore = useSelectedAccountStore();
   const toast = useRef<Toast>(null);
@@ -48,46 +50,59 @@ function AccountActionDialog(props: {
       });
     }
   }, [props.isVisible, props.dialogType]);
-  const onSubmit = async (data: CreateAccountRequest) => {
-    if (props.dialogType === DialogType.CREATE) {
-      try {
-        const response = await createAccount(data);
-        accountStore.setAccounts([...accountStore.accounts, response]);
-        toast.current?.show({
-          severity: "success",
-          summary: "Success",
-          detail: "Account is successfully created.",
-          life: 3000,
-        });
-        props.setVisible(false);
-      } catch (e: any) {
-        toast.current?.show({ severity: "error", summary: "Error", detail: e?.data, life: 3000 });
+  const onSubmit = useCallback(
+    async (data: CreateAccountRequest) => {
+      if (props.dialogType === DialogType.CREATE) {
+        try {
+          const response = await createAccount(data);
+          accountStore.setAccounts([...accountStore.accounts, response]);
+          toast.current?.show({
+            severity: "success",
+            summary: "Success",
+            detail: "Account is successfully created.",
+            life: 3000,
+          });
+          props.setVisible(false);
+        } catch (e: any) {
+          toast.current?.show({
+            severity: "error",
+            summary: "Error",
+            detail: e?.response?.data?.error || e?.message || "Update failed",
+            life: 3000,
+          });
+        }
       }
-    }
-    if (props.dialogType === DialogType.UPDATE) {
-      try {
-        const request: UpdateAccountRequest = {
-          id: selectedAccountStore.selectedAccount?.id,
-          accountName: data.accountName,
-        };
-        const updatedAccount = await updateAccountName(request);
-        const updatedList = accountStore.accounts.map((acc) =>
-          acc.id === updatedAccount.id ? updatedAccount : acc
-        );
+      if (props.dialogType === DialogType.UPDATE) {
+        try {
+          const request: UpdateAccountRequest = {
+            id: selectedAccountStore.selectedAccount?.id,
+            accountName: data.accountName,
+          };
+          const updatedAccount = await updateAccountName(request);
+          const updatedList = accountStore.accounts.map((acc) =>
+            acc.id === updatedAccount.id ? updatedAccount : acc
+          );
 
-        accountStore.setAccounts(updatedList);
-        toast.current?.show({
-          severity: "success",
-          summary: "Success",
-          detail: "Account is successfully updated.",
-          life: 3000,
-        });
-        props.setVisible(false);
-      } catch (e: any) {
-        toast.current?.show({ severity: "error", summary: "Error", detail: e?.data, life: 3000 });
+          accountStore.setAccounts(updatedList);
+          toast.current?.show({
+            severity: "success",
+            summary: "Success",
+            detail: "Account is successfully updated.",
+            life: 3000,
+          });
+          props.setVisible(false);
+        } catch (e: any) {
+          toast.current?.show({
+            severity: "error",
+            summary: "Error",
+            detail: e?.response?.data?.error || e?.message || "Update failed",
+            life: 3000,
+          });
+        }
       }
-    }
-  };
+    },
+    [props.dialogType, props.setVisible, accountStore, selectedAccountStore]
+  );
   return (
     <div>
       <Toast ref={toast} />

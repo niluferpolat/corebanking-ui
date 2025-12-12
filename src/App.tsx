@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import { PrivateRoute } from "./layout/PrivateRoute";
 import AccountPage from "./pages/AccountPage";
+import TransactionHistoryPage from "./pages/TransactionHistoryPage";
 
 function App() {
   return (
@@ -20,6 +21,14 @@ function App() {
           element={
             <PrivateRoute>
               <AccountPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/transactions"
+          element={
+            <PrivateRoute>
+              <TransactionHistoryPage />
             </PrivateRoute>
           }
         />

@@ -2,9 +2,11 @@ import { useAccountDetailStore } from "@/store/account.detail.store";
 import { Dialog } from "primereact/dialog";
 import moment from "moment";
 import { Button } from "primereact/button";
+import { useNavigate } from "react-router";
 
 function AccountDetailDialog(props: { visible: boolean; setVisible: any }) {
   const accountDetailStore = useAccountDetailStore();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -33,7 +35,7 @@ function AccountDetailDialog(props: { visible: boolean; setVisible: any }) {
           </p>
         </span>
         <div className="flex justify-center mt-6">
-          <Button label="Go To Transaction History" />
+          <Button onClick={() => navigate("/transactions")} label="Go To Transaction History" />
         </div>
       </Dialog>
     </div>

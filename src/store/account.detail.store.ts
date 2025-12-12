@@ -1,5 +1,6 @@
 import type { AccountDetailsResponse, AccountResponse } from "@/types/AccountTypes";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface SelectedAccountState {
   selectedAccount: AccountResponse | null;
@@ -13,17 +14,18 @@ interface AccountDetailState {
 }
 
 // For account detail dialog or detail view
-export const useAccountDetailStore = create<AccountDetailState>((set) => ({
-  accountDetail: null,
-  setAccountDetail: (detail) =>
-    set({
-      accountDetail: detail,
-    }),
-  clearAccountDetail: () =>
-    set({
+export const useAccountDetailStore = create<AccountDetailState>()(
+  persist(
+    (set) => ({
       accountDetail: null,
+      setAccountDetail: (data) => set({ accountDetail: data }),
+      clearAccountDetail: () => set({ accountDetail: null }),
     }),
-}));
+    {
+      name: "account-detail",
+    }
+  )
+);
 
 // For tracking selected account for update or delete
 export const useSelectedAccountStore = create<SelectedAccountState>((set) => ({

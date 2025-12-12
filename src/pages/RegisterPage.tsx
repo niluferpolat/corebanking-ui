@@ -7,10 +7,13 @@ import { Button } from "primereact/button";
 import { signUp } from "@/services/AuthService";
 import { useAuthStore } from "@/store/auth.store";
 import { useNavigate } from "react-router";
+import { Toast } from "primereact/toast";
+import { useRef } from "react";
 
 function RegisterPage() {
   const navigate = useNavigate();
   const authStore = useAuthStore();
+  const toast = useRef<Toast>(null);
   const schema = yup
     .object({
       username: yup
@@ -46,11 +49,16 @@ function RegisterPage() {
       authStore.login(response);
       navigate("/account");
     } catch (error) {
-      console.error("Registration failed:", error);
+      toast.current?.show({
+        severity: "error",
+        summary: "Registration Failed",
+        detail: error.response?.data?.error || "An error occurred during registration.",
+      });
     }
   };
   return (
     <div>
+      <Toast ref={toast} />
       <h1 className="text-2xl">Sign Up</h1>
       <p className="mt-4">Please fill your details</p>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-6 flex flex-col gap-4">
