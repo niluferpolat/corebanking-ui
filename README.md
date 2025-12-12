@@ -1,5 +1,8 @@
 # 💳 MiniBank Frontend (React + Zustand)
 
+### Deployed URL
+https://bright-hamster-e9605d.netlify.app
+
 MiniBank Frontend is a simple and modern banking UI built with React, Zustand, and PrimeReact.
 The application allows users to:
 
