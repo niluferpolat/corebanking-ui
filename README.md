@@ -3,6 +3,14 @@
 ### Deployed URL
 https://bright-hamster-e9605d.netlify.app
 
+Username and password:
+**test_rockerfeller**
+***Password.123***
+
+Second User is:
+**niluferr**
+**Password!123**
+
 MiniBank Frontend is a simple and modern banking UI built with React, Zustand, and PrimeReact.
 The application allows users to:
 
