@@ -6,11 +6,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-      // ⭐ Build'in hata yüzünden KESİLMEMESİ için:
     "skipLibCheck": true,
     "noEmitOnError": false,
-
-    // ⭐ TypeScript’in sıkı kontrollerini devre dışı bırakır (Opsiyonel ama önerilir)
     "strict": false
   }
 }
