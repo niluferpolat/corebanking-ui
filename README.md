@@ -1,6 +1,7 @@
 # 💳 MiniBank Frontend (React + Zustand)
 
 ### Deployed URL
+
 https://bright-hamster-e9605d.netlify.app
 
 MiniBank Frontend is a simple and modern banking UI built with React, Zustand, and PrimeReact.
@@ -25,6 +26,7 @@ The application allows users to:
 - Axios
 
 #### Utilities
+
 - Prettier (Formatting)
 - ESLint (linting)
 - Moment.js (Date formatting)
@@ -60,17 +62,21 @@ The app will be available at:
 http://localhost:5173/
 
 # 🖥 Features
+
 ### 🏦 Accounts
+
 - View list of accounts
 - View account details
 - Create / update / delete accounts
 
 ### 💰 Transfers
+
 - Transfer funds between accounts
 - Validation with React Hook Form
 - Toast notifications
 
 ### 📜 Transaction History
+
 - Paginated DataTable
 - Custom templates (date + status)
 - Styled status indicators
@@ -84,5 +90,3 @@ http://localhost:5173/
 | npm run preview | Preview build            |
 | npm run lint    | Run ESLint               |
 | npm run format  | Format with Prettier     |
-
-

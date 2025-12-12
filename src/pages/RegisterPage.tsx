@@ -49,10 +49,19 @@ function RegisterPage() {
       authStore.login(response);
       navigate("/account");
     } catch (error: any) {
+      const details = error?.response?.data?.details;
+
+      const errorMessage = details
+        ? Object.entries(details)
+            .map(([field, message]) => `${message}`)
+            .join("\n")
+        : "An error occurred during registration.";
+
       toast.current?.show({
         severity: "error",
         summary: "Registration Failed",
-        detail: error.response?.data?.error || "An error occurred during registration.",
+        detail: errorMessage,
+        life: 5000,
       });
     }
   };

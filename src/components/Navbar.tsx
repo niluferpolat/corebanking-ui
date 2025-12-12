@@ -36,11 +36,18 @@ function Navbar() {
 
   const end = (
     <div>
-      <Button onClick={() => logout()} icon="pi pi-sign-out" text label="Logout" />
+      {authStore.isAuthenticated && (
+        <Button onClick={() => logout()} icon="pi pi-sign-out" text label="Logout" />
+      )}
     </div>
   );
   return (
-    <Menubar start={start} end={end} className="p-4 bg-white/80 border-b shadow-sm" model={items} />
+    <Menubar
+      start={start}
+      end={end}
+      className="p-4 bg-white/80 border-b shadow-sm"
+      model={authStore.isAuthenticated ? items : []}
+    />
   );
 }
 
