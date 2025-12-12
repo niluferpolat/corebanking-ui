@@ -132,7 +132,7 @@ function AccountActionDialog(props: AccountActionProps) {
             )}
           </div>
           <div className="flex justify-end mr-3">
-            <Button type="submit" label="Search" className="w-20" />
+            <Button type="submit" label="Submit" className="w-20" />
           </div>
         </form>
       </Dialog>
