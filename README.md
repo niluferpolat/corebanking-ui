@@ -41,7 +41,7 @@ The application allows users to:
 
 # 📦 Installation
 
-## 1️⃣ Cone the repository
+## 1️⃣ Clone the repository
 
 ```bash
 git clone https://github.com/niluferpolat/corebanking-ui.git
